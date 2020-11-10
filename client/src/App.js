@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Header from "./Header/Header";
+import WeatherJumbotron from "./WeatherJumbotron/WeatherJumbotron";
 
-function App() {
+const App = () => {
+  const [zipCode, setZipCode] = useState("19104");
+  // TODO: Pass onClick handler to Header as a prop
+  // TODO: Pass zipCode to WeatherJumbotron
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <WeatherJumbotron />
+    </>
   );
-}
+};
 
 export default App;
