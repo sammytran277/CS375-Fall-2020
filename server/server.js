@@ -23,15 +23,13 @@ app.get("/splash/", function(req, res){
 
 app.get("/current/", function(req, res){
 	zip = req.query.zip;
+	console.log(zip)
 	axios.get(`api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
+		console.log(response.json())
 
-		console.log(response)
 		res.json({"cod":200, "data": response});
 	}).catch(error => {
 		console.log(error);
-		res.status(error.response.data["cod"]).json({
-		    "cod": error.response.data["cod"],
-		    "message": error.response.data["message"]});
 	});
 }
 );
