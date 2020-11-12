@@ -1,5 +1,6 @@
 const express = require("express");
 let axios = require("axios");
+const cors = require("cors");
 
 const app = express();
 
@@ -12,6 +13,8 @@ console.log(apiFile)
 let apiKey = apiFile["api_key"];
 let baseUrl = apiFile["base_api_url"];
 let unsplashKey = apiFile["unsplash_key"]
+
+app.use(cors());
 
 // TODO: GET request handler that takes a search term and returns random landscape oriented image relevant to search term
 // https://unsplash.com/documentation#get-a-random-photo

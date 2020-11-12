@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Nav, Navbar, Form, FormControl } from "react-bootstrap";
 
 const Header = (props) => {
   const [userInput, setUserInput] = useState("");
@@ -22,7 +22,6 @@ const Header = (props) => {
             className="mr-sm-2"
             onChange={(e) => setUserInput(e.target.value)}
           />
-          <Button variant="outline-success">Search</Button>
         </Form>
       </Navbar.Collapse>
     </Navbar>

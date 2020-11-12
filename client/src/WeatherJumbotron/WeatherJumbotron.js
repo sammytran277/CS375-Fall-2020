@@ -1,10 +1,12 @@
 import React from "react";
 import { Jumbotron, Button } from "react-bootstrap";
 
-const WeatherJumbotron = (props) => {
+const WeatherJumbotron = ({ data }) => {
   return (
     <Jumbotron>
-      <h1>{props.zipCode}</h1>
+      <div>{(data.current) ? data.current + "\u00B0F" : null}</div>
+      <div>{(data.desc) ? data.desc : null}</div>
+      <div>{(data.city) ? data.city + " weather" : null}</div>
     </Jumbotron>
   );
 };
