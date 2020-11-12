@@ -11,11 +11,18 @@ let apiFile = require("./env.json");
 console.log(apiFile)
 let apiKey = apiFile["api_key"];
 let baseUrl = apiFile["base_api_url"];
+let unsplashKey = apiFile["unsplash_key"]
 
 // TODO: GET request handler that takes a search term and returns random landscape oriented image relevant to search term
 // https://unsplash.com/documentation#get-a-random-photo
 app.get("/splash/", function(req, res){
-
+	axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashKey}`).then(function (response) {
+		console.log(response.data)
+		res.json({"url": response.data["urls"]["raw"]})
+	})
+	.catch(error => {
+		console.log(error);
+	});;
 });
 
 // TODO: GET request handler that takes in zip code and returns current weather, city, weather desc
