@@ -3,7 +3,7 @@ let axios = require("axios");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = 5000;
 const HOSTNAME = "localhost";
 
 
@@ -21,13 +21,15 @@ app.get("/splash/", function(req, res){
 // TODO: GET request handler that takes in zip code and returns current weather, city, weather desc
 // https://openweathermap.org/current#zip
 
-app.get("/current/", function(req, res){
+app.get("/current/", function(req, res) {
 	zip = req.query.zip;
-	console.log(zip)
-	axios.get(`api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
-		console.log(response.json())
-
-		res.json({"cod":200, "data": response});
+	console.log(zip);
+	axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
+		const current = response.data.main.temp;
+		const desc = response.data.weather[0].main;
+		const city = response.data.name;
+		const cod = response.data.cod;
+		res.json({current, desc, city, cod});
 	}).catch(error => {
 		console.log(error);
 	});
