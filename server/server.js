@@ -1,5 +1,6 @@
 const express = require("express");
 let axios = require("axios");
+const moment = require("moment");
 const cors = require("cors");
 
 const app = express();
@@ -32,7 +33,7 @@ app.get("/splash/", function(req, res){
 // https://openweathermap.org/current#zip
 
 app.get("/current/", function(req, res) {
-	zip = req.query.zip;
+	let zip = req.query.zip;
 	console.log(zip);
 	axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
 		const current = response.data.main.temp;
@@ -50,7 +51,7 @@ app.get("/current/", function(req, res) {
 // https://openweathermap.org/forecast5
 // NOTE: This free endpoint only supports 5-day forecasts, so we'll have to work with that
 app.get("/forecast/", function(req, res){
-	zip = req.query.zip;
+	let zip = req.query.zip;
 	axios.get(`${baseUrl}?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
 		ret = []
 		for(var forecast of response["data"]["list"]){
@@ -72,10 +73,55 @@ app.get("/forecast/", function(req, res){
 
 
 // TODO: GET request handler that gets all comments for a particular day and zip code
-//app.get();
+app.get("/comments/", function(req, res){
+	let zip = parseInt(req.query.zip);
+	let date = moment(req.query.date).format('MM/DD/YYYY');
+
+	if(date.isValid() && zip > 9999) {
+		
+		var text = "SELECT * FROM comments where zip = $1 AND date = $2";
+		var value = [zip, date];
+
+		pool.query(text, value, (err, resp) => {
+			if(err) {
+				console.log(err.stack);
+			} else {
+				res.status(200);
+				res.send(resp.rows);
+			}
+		});
+	} else {
+		res.status(200);
+		res.json({'error': "invalid date or zip"});	
+	}
+});
 
 // TODO: POST request that allows user to add a comment about the weather for a particular day and zip code
-//app.post();
+app.post('/comment/', function(req, res) {
+    let data = req.body;
+    console.log(data);
+
+	let date = moment().format('MM/DD/YYYY');
+	let zip = parseInt(data.zip);
+	let comment = data.comment;
+	
+	if(('zip' in data) && ('comment' in data)) {
+		const text = 'INSERT INTO comments(zip, comment, date) VALUES($1, $2, $3)';
+        const values = [zip, comment, date];
+
+        pool.query(text, values, (err, resp) => {
+            if(err) {
+                console.log(err.stack);
+            } else {
+                res.status(200);
+                res.send({});
+            }
+        });
+	} else {
+        res.status(400);
+        res.send({});
+    }
+});
 
 app.listen(PORT, HOSTNAME, () => {
   console.log(`Listening at http://${HOSTNAME}:${PORT}`);
