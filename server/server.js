@@ -81,7 +81,7 @@ app.get("/comments/", function(req, res){
 	let zip = parseInt(req.query.zip);
 	let date = moment(req.query.date).format('MM/DD/YYYY');
 
-	if(date.isValid() && zip > 9999) {
+	if(date.isValid() && zip > 9999 && zip < 100000) {
 		
 		var text = "SELECT * FROM comments where zip = $1 AND date = $2";
 		var value = [zip, date];
@@ -95,7 +95,7 @@ app.get("/comments/", function(req, res){
 			}
 		});
 	} else {
-		res.status(200);
+		res.status(400);
 		res.json({'error': "invalid date or zip"});	
 	}
 });
