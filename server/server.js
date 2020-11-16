@@ -1,4 +1,5 @@
 const express = require("express");
+const pg = require("pg");
 let axios = require("axios");
 const moment = require("moment");
 const cors = require("cors");
@@ -8,9 +9,12 @@ const app = express();
 const PORT = 5000;
 const HOSTNAME = "localhost";
 
-
 let apiFile = require("./env.json");
-console.log(apiFile)
+const Pool = pg.Pool;
+const pool = new Pool(apiFile["database"]);
+pool.connect().then(function () {
+    console.log(`Connected to database ${env.database}`);
+});
 let apiKey = apiFile["api_key"];
 let baseUrl = apiFile["base_api_url"];
 let unsplashKey = apiFile["unsplash_key"]
