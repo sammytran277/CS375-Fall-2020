@@ -1,12 +1,29 @@
 import React from "react";
-import { Jumbotron, Button } from "react-bootstrap";
+import { Jumbotron } from "react-bootstrap";
 
-const WeatherJumbotron = ({ data }) => {
+import "./WeatherJumbotron.css";
+
+const WeatherJumbotron = ({ data, url }) => {
+  const styleObj = {
+    display: "flex",
+    alignItems: "flex-end",
+    backgroundImage: `url(${url})`,
+    height: "65vh",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
-    <Jumbotron>
-      <div>{(data.current) ? data.current + "\u00B0F" : null}</div>
-      <div>{(data.desc) ? data.desc : null}</div>
-      <div>{(data.city) ? data.city + " weather" : null}</div>
+    <Jumbotron style={styleObj}>
+      <div>
+        <h1 className="jumbotron-text">
+          {data.current ? data.current + "\u00B0F" : null}
+        </h1>
+        <h5 className="jumbotron-text">{data.desc ? data.desc : null}</h5>
+        <h5 className="jumbotron-text">
+          {data.city ? data.city + " weather" : null}
+        </h5>
+      </div>
     </Jumbotron>
   );
 };
