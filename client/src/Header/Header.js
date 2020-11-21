@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Nav, Navbar, Form, FormControl } from "react-bootstrap";
 
+import "./Header.css";
+import logo from "./logo.svg";
+
 const Header = (props) => {
   const [userInput, setUserInput] = useState("");
 
@@ -10,8 +13,17 @@ const Header = (props) => {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+    <Navbar bg="primary" variant="dark" expand="lg">
+      <Navbar.Brand href="#home">
+        <img
+          className="logo"
+          height="50px"
+          width="50px"
+          src={logo}
+          alt="Sun and clouds"
+        ></img>
+        React-Bootstrap
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto"></Nav>

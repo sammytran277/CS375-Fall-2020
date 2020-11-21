@@ -1,10 +1,10 @@
 import React from "react";
-import { Jumbotron } from "react-bootstrap";
 
 import "./WeatherJumbotron.css";
 
 const WeatherJumbotron = ({ data, url }) => {
   const styleObj = {
+    padding: "25px",
     display: "flex",
     alignItems: "flex-end",
     backgroundImage: `url(${url})`,
@@ -14,7 +14,7 @@ const WeatherJumbotron = ({ data, url }) => {
   };
 
   return (
-    <Jumbotron style={styleObj}>
+    <div style={styleObj}>
       <div>
         <h1 className="jumbotron-text">
           {data.current ? data.current + "\u00B0F" : null}
@@ -24,7 +24,7 @@ const WeatherJumbotron = ({ data, url }) => {
           {data.city ? data.city + " weather" : null}
         </h5>
       </div>
-    </Jumbotron>
+    </div>
   );
 };
 
