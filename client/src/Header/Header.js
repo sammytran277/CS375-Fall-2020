@@ -22,7 +22,7 @@ const Header = (props) => {
           src={logo}
           alt="Sun and clouds"
         ></img>
-        React-Bootstrap
+        Instant Weather
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
