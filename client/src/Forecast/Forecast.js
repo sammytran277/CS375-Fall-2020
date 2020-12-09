@@ -1,9 +1,9 @@
 import React from "react";
 import "./Forecast.css";
+import cloud from "./cloud.png";
+import Tile from "./Tile.js";
 
 const axios = require("axios");
-
-
 
 const Forecast = ({ value }) => {
   
@@ -34,7 +34,10 @@ const Forecast = ({ value }) => {
     }
     console.log(Math.min(...temp));
     head.push(
-      <th>{bigItems ? bigItems[i][0]["date"].split(",")[0] : null}</th>
+      <>
+        <td class='blank'> &nbsp; </td>
+        <th>{bigItems ? bigItems[i][0]["date"].split(",")[0] : null}</th>
+      </>
     )
 
     /*if (bigItems[i][0]["forecast"][0] == "few clouds"){
@@ -59,30 +62,27 @@ const Forecast = ({ value }) => {
         console.log(url, "response")
       });*/
       cell.push(
-    
-        <td>
-          <img src="sun.png"></img>
-          <ul>
-          
-            <li>{temp ? "max:  " + Math.max(...temp) : null}</li>
-            <li>{temp ? "min:  " + Math.min(...temp) : null}</li>
-            <li>{bigItems ? bigItems[i][0]["forecast"][0] : null}</li> 
-          </ul>
-        </td>
+        <>
+          <td class='blank'> &nbsp; </td>
+          <td>
+            <Tile cloud={ cloud } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+          </td>
+        </>
       );
-    
   }
+  cell.push(
+    <td class='blank'> &nbsp; </td>
+  );
   
   console.log(bigItems, "sub")
   return (
     <div>
       <table>
        {head} 
-  <tr>{cell}</tr>
-  <tr></tr>
+        <tr>{cell}</tr>
+        <tr></tr>
       </table>
     </div>
-
   );
 };
 
