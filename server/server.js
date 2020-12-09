@@ -69,7 +69,7 @@ app.get("/forecast/", function(req, res){
 			var date = new Date(forecast["dt_txt"])
 			//got the options from https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
 			date = `${date.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} @ ${date.toLocaleTimeString()} `
-			ret.push({"date": date, "forecast": [forecast.weather[0].description, forecast.weather[0].icon], "temp":convertToFahrenheit(forecast.main.temp)})
+			ret.push({"date": date, "forecast": [forecast.weather[0].description, forecast.weather[0].icon], "temp":forecast.main.temp})
 		}
 		console.log(res)
 		res.json({"cod":200, "data": ret, "city":response['data']['city']['name']});
