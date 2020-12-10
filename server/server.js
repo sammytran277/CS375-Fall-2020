@@ -42,7 +42,8 @@ app.get("/splash/", function(req, res){
 app.get("/current/", function(req, res) {
 	let zip = req.query.zip;
 	console.log(zip);
-	axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
+	if(zip > 9999 && zip < 100000) {
+		axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
 		const current = response.data.main.temp;
 		const desc = response.data.weather[0].main;
 		const city = response.data.name;
@@ -51,6 +52,11 @@ app.get("/current/", function(req, res) {
 	}).catch(error => {
 		console.log(error);
 	});
+	} else {
+		res.status(400);
+		res.json({'error': "invalid date or zip"});	
+	}
+	
 }
 );
 
