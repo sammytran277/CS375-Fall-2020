@@ -15,11 +15,16 @@ td {
     padding: 0.5%;
     border-radius: 10%;
     box-shadow: 5px 5px gainsboro;
+    width: 500px;
+    text-align: right;
+    
 }
 
 .blank {
     background-color: transparent;
     box-shadow: 0px 0px;
+    width: 200px;
+    
 }
 
 td :hover{
@@ -30,4 +35,17 @@ ul {
     list-style-type: none;
     margin-left: 5%;
     text-decoration: solid;
+    
+}
+
+li{
+    text-align: right;
+}
+
+.pics{
+    float: left;
+    width:  100px;
+    height: 100px;
+    object-fit: cover;
+    vertical-align: top;
 }
