@@ -1,6 +1,9 @@
 import React from "react";
 import "./Forecast.css";
 import cloud from "./cloud.png";
+import sun from "./sunny.png";
+import rain from "./rain.jpg";
+import overcast from "./overcast.png";
 import Tile from "./Tile.js";
 
 const axios = require("axios");
@@ -12,6 +15,7 @@ const Forecast = ({ value }) => {
   if (!value.data) {
     return (<div></div>);
   }
+  console.log(value.data)
   for (var i = 1; i < value.data.length; i++) {
     if (
       value.data[i]["date"].split(",")[0] !==
@@ -40,7 +44,50 @@ const Forecast = ({ value }) => {
       </>
     )
 
-    /*if (bigItems[i][0]["forecast"][0] == "few clouds"){
+    if (bigItems[i][0]["forecast"][0] == "broken clouds" || bigItems[i][0]["forecast"][0] == "scattered clouds" || bigItems[i][0]["forecast"][0] == "few clouds"){
+      cell.push(
+        <>
+          <td class='blank'> &nbsp; </td>
+          <td>
+            <Tile image={ cloud } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+          </td>
+        </>
+      );
+    }
+    else if (bigItems[i][0]["forecast"][0] == "clear sky"){
+      cell.push(
+        <>
+          <td class='blank'> &nbsp; </td>
+          <td>
+            <Tile image={ sun } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+          </td>
+        </>
+      );
+    }
+
+    else if (bigItems[i][0]["forecast"][0] == "light rain"){
+      cell.push(
+        <>
+          <td class='blank'> &nbsp; </td>
+          <td>
+            <Tile image={ rain } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+          </td>
+        </>
+      );
+    }
+
+    else if (bigItems[i][0]["forecast"][0] == "overcast clouds"){
+      cell.push(
+        <>
+          <td class='blank'> &nbsp; </td>
+          <td>
+            <Tile image={ overcast } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+          </td>
+        </>
+      );
+    }
+    
+    /*
       cell.push(
     
         <td>
@@ -61,14 +108,8 @@ const Forecast = ({ value }) => {
         var url = (response.data.url);
         console.log(url, "response")
       });*/
-      cell.push(
-        <>
-          <td class='blank'> &nbsp; </td>
-          <td>
-            <Tile cloud={ cloud } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
-          </td>
-        </>
-      );
+      
+      
   }
   cell.push(
     <td class='blank'> &nbsp; </td>
