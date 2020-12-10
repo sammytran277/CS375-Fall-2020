@@ -1,12 +1,12 @@
-const Tile = ({ cloud, temp, bigItems, i }) => {
+const Tile = ({ image, temp, bigItems, i }) => {
     return (
     <div>
         
-        <img src={ cloud } alt={'cloud'} style={{ width: '90%', marginLeft: '5%' }}></img>
+        <img src={ image } alt={'weather_image'} style={{ width: '90%', marginLeft: '5%' }}></img>
         <ul>          
-            <li>{temp ? "max:  " + Math.max(...temp) : null}</li>
-            <li>{temp ? "min:  " + Math.min(...temp) : null}</li>
-            <li>{bigItems ? bigItems[i][0]["forecast"][0] : null}</li> 
+            <li>{temp ? "max:  " + Math.max(...temp) + "°F" : null}</li>
+            <li>{temp ? "min:  " + Math.min(...temp) + "°F" : null}</li>
+            <li className='description' >{bigItems ? bigItems[i][0]["forecast"][0] : null}</li> 
         </ul>
     </div>
     );
