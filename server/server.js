@@ -86,9 +86,9 @@ app.get("/forecast/", function(req, res){
 // TODO: GET request handler that gets all comments for a particular day and zip code
 app.get("/comments/", function(req, res){
 	let zip = parseInt(req.query.zip);
-	let date = moment(req.query.date).format('MM/DD/YYYY');
+	let date = req.query.date;
 
-	if(date.isValid() && zip > 9999 && zip < 100000) {
+	if(zip > 9999 && zip < 100000) {
 		
 		var text = "SELECT * FROM comments where zip = $1 AND date = $2";
 		var value = [zip, date];

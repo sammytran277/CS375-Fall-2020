@@ -4,10 +4,10 @@ import Comment from "./Comment";
 
 const axios = require("axios");
 
-const Comments = ({ zipCode }) => {
+const Comments = ({ zipCode, comments }) => {
   const [currComment, setCurrComment] = useState("");
 
-  const comments = ["Woah it is so warm", "I love Saturday!", "Summer fun!"];
+  // const comments = ["Woah it is so warm", "I love Saturday!", "Summer fun!"];
   const styles = {
     marginTop: "50px",
     paddingLeft: "25px",
@@ -30,7 +30,7 @@ const Comments = ({ zipCode }) => {
     <div style={styles}>
       <h3>Comments about this weather forecast:</h3>
       {comments.map((c) => (
-        <Comment text={c}></Comment>
+        <Comment text={c.comment}></Comment>
       ))}
       <Form onSubmit={handleSubmit}>
         <div className="d-flex">
