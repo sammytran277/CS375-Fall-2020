@@ -20,6 +20,7 @@ let baseUrl = apiFile["base_api_url"];
 let unsplashKey = apiFile["unsplash_key"]
 
 app.use(cors());
+app.use(express.json());
 
 function convertToFahrenheit(kelvinTemp) {
 	return kelvinTemp * (9/5) - 459.67;

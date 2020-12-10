@@ -8,7 +8,7 @@ const WeatherJumbotron = ({ data, url }) => {
     display: "flex",
     alignItems: "flex-end",
     backgroundImage: `url(${url})`,
-    height: "35vh",
+    height: "50vh",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };

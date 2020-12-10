@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import WeatherJumbotron from "./WeatherJumbotron/WeatherJumbotron";
 import Forecast from "./Forecast/Forecast";
+import Comments from "./Comments/Comments";
+import Footer from "./Footer/Footer";
 
 const axios = require("axios");
 
@@ -41,6 +43,8 @@ const App = () => {
       <Header submit={(zipCode) => setZipCode(zipCode)} />
       <WeatherJumbotron url={imageUrl} data={currentWeatherData} />
       <Forecast value={currentForecastData} />
+      <Comments zipCode={zipCode} />
+      <Footer />
     </>
   );
 };
