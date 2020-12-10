@@ -1,12 +1,14 @@
 import React from "react";
 import "./Forecast.css";
-import cloud from "./cloud.png";
-import sun from "./sunny.png";
-import rain from "./rain.jpg";
+// import cloud from "./cloud.png";
 import overcast from "./overcast.png";
+import sunny from "./sunny.png";
+import rain from "./rain.jpg";
+import broken_clouds from "./broken_clouds.png";
+// import light_rain from "./light_rain.png";
 import Tile from "./Tile.js";
 
-const axios = require("axios");
+// const axios = require("axios");
 
 const Forecast = ({ value }) => {
   
@@ -15,19 +17,25 @@ const Forecast = ({ value }) => {
   if (!value.data) {
     return (<div></div>);
   }
-  console.log(value.data)
-  for (var i = 1; i < value.data.length; i++) {
-    if (
-      value.data[i]["date"].split(",")[0] !==
-      value.data[i - 1]["date"].split(",")[0]
-    ) {
-      bigItems.push(subItems);
-      subItems = []
-    }
-    else{
-      subItems.push(value.data[i - 1])
+
+  for (var i = 0; i < value.data.length; i++) {
+    console.log("------>here");
+    console.log(value.data);
+    if(i < value.data.length - 1) {
+      if (
+        value.data[i]["date"].split(",")[0] !== value.data[i + 1]["date"].split(",")[0]
+      ) {
+        bigItems.push(subItems);
+        subItems = []
+      }
+      else{
+        subItems.push(value.data[i])
+      }
     }
   }
+
+  bigItems.push(subItems);
+
   const cell = [];
   var temp = []
   const head = []
@@ -44,28 +52,28 @@ const Forecast = ({ value }) => {
       </>
     )
 
-    if (bigItems[i][0]["forecast"][0] == "broken clouds" || bigItems[i][0]["forecast"][0] == "scattered clouds" || bigItems[i][0]["forecast"][0] == "few clouds"){
+    if (bigItems[i][0]["forecast"][0] === "broken clouds" || bigItems[i][0]["forecast"][0] === "scattered clouds" || bigItems[i][0]["forecast"][0] === "few clouds"){
       cell.push(
         <>
           <td class='blank'> &nbsp; </td>
           <td>
-            <Tile image={ cloud } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+            <Tile image={ broken_clouds } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
           </td>
         </>
       );
     }
-    else if (bigItems[i][0]["forecast"][0] == "clear sky"){
+    else if (bigItems[i][0]["forecast"][0] === "clear sky"){
       cell.push(
         <>
           <td class='blank'> &nbsp; </td>
           <td>
-            <Tile image={ sun } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+            <Tile image={ sunny } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
           </td>
         </>
       );
     }
 
-    else if (bigItems[i][0]["forecast"][0] == "light rain"){
+    else if (bigItems[i][0]["forecast"][0] === "light rain"){
       cell.push(
         <>
           <td class='blank'> &nbsp; </td>
@@ -76,7 +84,7 @@ const Forecast = ({ value }) => {
       );
     }
 
-    else if (bigItems[i][0]["forecast"][0] == "overcast clouds"){
+    else if (bigItems[i][0]["forecast"][0] === "overcast clouds"){
       cell.push(
         <>
           <td class='blank'> &nbsp; </td>
