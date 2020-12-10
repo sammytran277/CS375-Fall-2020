@@ -22,10 +22,6 @@ let unsplashKey = apiFile["unsplash_key"]
 app.use(cors());
 app.use(express.json());
 
-function convertToFahrenheit(kelvinTemp) {
-	return kelvinTemp * (9/5) - 459.67;
-}
-
 // TODO: GET request handler that takes a search term and returns random landscape oriented image relevant to search term
 // https://unsplash.com/documentation#get-a-random-photo
 app.get("/splash/", function(req, res){
