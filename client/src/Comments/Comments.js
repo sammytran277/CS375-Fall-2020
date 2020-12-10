@@ -23,6 +23,7 @@ const Comments = ({ zipCode }) => {
     e.preventDefault();
     console.log(`Submitted: ${currComment} and ${zipCode}`);
     axios.post("http://localhost:5000/comment", { "comment": currComment, "zip": zipCode });
+    setCurrComment("");
   };
 
   return (
@@ -37,6 +38,7 @@ const Comments = ({ zipCode }) => {
             type="text"
             placeholder="Enter your comment here!"
             onChange={handleChange}
+            value={currComment}
           ></Form.Control>
           <div className="mx-2"></div>
           <Button variant="primary" type="submit">
