@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Forecast.css";
 // import cloud from "./cloud.png";
 import overcast from "./overcast.png";
