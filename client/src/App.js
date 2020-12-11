@@ -42,7 +42,7 @@ const App = () => {
     <>
       <Header submit={(zipCode) => setZipCode(zipCode)} />
       <WeatherJumbotron url={imageUrl} data={currentWeatherData} />
-      <Forecast value={currentForecastData} />
+      <Forecast zipCode={zipCode} value={currentForecastData} />
       <Comments zipCode={zipCode} />
       <Footer />
     </>
