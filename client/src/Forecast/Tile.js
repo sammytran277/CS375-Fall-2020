@@ -1,11 +1,12 @@
 import Modal from "./Modal";
 import { useState } from "react";
 
-const Tile = ({ count, data, image, temp, bigItems, i }) => {
+const Tile = ({ day, data, image, temp, bigItems, i }) => {
 
     const [state, setState] = useState(false);
 
     const showModal = () => {
+
         setState(true);
     };
 
@@ -15,7 +16,7 @@ const Tile = ({ count, data, image, temp, bigItems, i }) => {
 
     return (
         <>
-            <Modal count={ count } data={ data } show={state} handleClose={hideModal}></Modal>
+            <Modal day={ day } data={ data } show={state} handleClose={hideModal}></Modal>
             <div>
                 <img src={ image } alt={'weather_image'} style={{ width: '90%', marginLeft: '5%' }} onClick={showModal}></img>
                 <ul>          

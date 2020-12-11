@@ -55,7 +55,7 @@ const Forecast = ({ value }) => {
           <>
             <td class='blank'> &nbsp; </td>
             <td>
-              <Tile count={ i } data={ value.data } image={ broken_clouds } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+              <Tile day={ bigItems[i][0]["date"].split(',')[0] } data={ value.data } image={ broken_clouds } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
             </td>
           </>
         );
@@ -65,7 +65,7 @@ const Forecast = ({ value }) => {
           <>
             <td class='blank'> &nbsp; </td>
             <td>
-              <Tile count={ i } data={ value.data } image={ sunny } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+              <Tile day={ bigItems[i][0]["date"].split(',')[0] } data={ value.data } image={ sunny } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
             </td>
           </>
         );
@@ -76,7 +76,7 @@ const Forecast = ({ value }) => {
           <>
             <td class='blank'> &nbsp; </td>
             <td>
-              <Tile count={ i } data={ value.data } image={ rain } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+              <Tile day={ bigItems[i][0]["date"].split(',')[0] } data={ value.data } image={ rain } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
             </td>
           </>
         );
@@ -87,7 +87,7 @@ const Forecast = ({ value }) => {
           <>
             <td class='blank'> &nbsp; </td>
             <td>
-              <Tile count={ i } data={ value.data } image={ overcast } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+              <Tile day={ bigItems[i][0]["date"].split(',')[0] } data={ value.data } image={ overcast } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
             </td>
           </>
         );

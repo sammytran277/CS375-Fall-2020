@@ -1,10 +1,10 @@
 import { LineChart } from 'react-chartkick';
 import 'chart.js';
-const Modal = ({ count, data, handleClose, show, children }) => {
+const Modal = ({ day, data, handleClose, show, children }) => {
   
   const showHideClassName = show ? "modal display-block" : "modal display-none";
   const timeArray = ['12:00 AM', '3:00 AM', '6:00 AM', '9:00 AM', '12:00 PM', '3:00 PM', '6:00 PM', '9:00 PM'];
-  const day = data[count]['date'].split(',')[0];
+  // const day = data[count]['date'].split(',')[0];
   let c = 0;
 //   let temp = [];
   let chartData = {};
