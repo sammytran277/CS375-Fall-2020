@@ -65,7 +65,8 @@ app.get("/current/", function(req, res) {
 // NOTE: This free endpoint only supports 5-day forecasts, so we'll have to work with that
 app.get("/forecast/", function(req, res){
 	let zip = req.query.zip;
-	axios.get(`${baseUrl}?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
+	if(zip > 9999 && zip < 100000) {
+		axios.get(`${baseUrl}?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
 		ret = []
 		for(var forecast of response["data"]["list"]){
 			//console.log(forecast)
@@ -76,12 +77,16 @@ app.get("/forecast/", function(req, res){
 		}
 		console.log(res)
 		res.json({"cod":200, "data": ret, "city":response['data']['city']['name']});
-	}).catch(error => {
-		console.log(error);
-		res.status(error.response.data["cod"]).json({
-		    "cod": error.response.data["cod"],
-		    "message": error.response.data["message"]});
-	});
+		}).catch(error => {
+			console.log(error);
+			res.status(error.response.data["cod"]).json({
+			    "cod": error.response.data["cod"],
+			    "message": error.response.data["message"]});
+		});
+	} else {
+		res.status(400);
+		res.json({'error': "invalid date or zip"});	
+	}
 });
 
 
