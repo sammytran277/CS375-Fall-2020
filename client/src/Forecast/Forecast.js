@@ -37,7 +37,7 @@ const Forecast = ({ value }) => {
     const cell = [];
     var temp = []
     const head = []
-    for (i = 0; i < bigItems.length - 1; i++){
+    for (i = 0; i < bigItems.length; i++){
       temp = []
       for (var j = 0; j < bigItems[i].length - 1; j++){
         temp.push(Math.floor(bigItems[i][j]["temp"]))
