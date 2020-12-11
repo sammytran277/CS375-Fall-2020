@@ -4,10 +4,10 @@ import Comment from "./Comment";
 
 const axios = require("axios");
 
-const Comments = ({ zipCode }) => {
+const Comments = ({ zipCode, comments }) => {
   const [currComment, setCurrComment] = useState("");
 
-  const comments = ["Woah it is so warm", "I love Saturday!", "Summer fun!"];
+  // const comments = ["Woah it is so warm", "I love Saturday!", "Summer fun!"];
   const styles = {
     marginTop: "50px",
     paddingLeft: "25px",
@@ -23,13 +23,14 @@ const Comments = ({ zipCode }) => {
     e.preventDefault();
     console.log(`Submitted: ${currComment} and ${zipCode}`);
     axios.post("http://localhost:5000/comment", { "comment": currComment, "zip": zipCode });
+    setCurrComment("");
   };
 
   return (
     <div style={styles}>
       <h3>Comments about this weather forecast:</h3>
       {comments.map((c) => (
-        <Comment text={c}></Comment>
+        <Comment text={c.comment}></Comment>
       ))}
       <Form onSubmit={handleSubmit}>
         <div className="d-flex">
@@ -37,6 +38,7 @@ const Comments = ({ zipCode }) => {
             type="text"
             placeholder="Enter your comment here!"
             onChange={handleChange}
+            value={currComment}
           ></Form.Control>
           <div className="mx-2"></div>
           <Button variant="primary" type="submit">

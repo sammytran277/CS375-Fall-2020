@@ -12,6 +12,7 @@ const App = () => {
   const [currentWeatherData, setCurrentWeatherData] = useState({});
   const [currentForecastData, setCurrentForecastData] = useState({});
   const [imageUrl, setImageUrl] = useState("");
+  const [currentComments, setCurrentComments] = useState([]);
 
   useEffect(() => {
     axios
@@ -38,12 +39,26 @@ const App = () => {
       });
   }, [zipCode]);
 
+  useEffect(() => {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const date = `${mm}/${dd}/${yyyy}`;
+    axios
+      .get(`http://localhost:5000/comments?zip=${zipCode}&date=${date}`)
+      .then((response) => {
+        // console.log(response.data);
+        setCurrentComments(response.data);
+      });
+  });
+
   return (
     <>
       <Header submit={(zipCode) => setZipCode(zipCode)} />
       <WeatherJumbotron url={imageUrl} data={currentWeatherData} />
       <Forecast value={currentForecastData} />
-      <Comments zipCode={zipCode} />
+      <Comments zipCode={zipCode} comments={currentComments} />
       <Footer />
     </>
   );

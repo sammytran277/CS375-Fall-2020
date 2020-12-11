@@ -22,10 +22,6 @@ let unsplashKey = apiFile["unsplash_key"]
 app.use(cors());
 app.use(express.json());
 
-function convertToFahrenheit(kelvinTemp) {
-	return kelvinTemp * (9/5) - 459.67;
-}
-
 // TODO: GET request handler that takes a search term and returns random landscape oriented image relevant to search term
 // https://unsplash.com/documentation#get-a-random-photo
 app.get("/splash/", function(req, res){
@@ -46,7 +42,8 @@ app.get("/splash/", function(req, res){
 app.get("/current/", function(req, res) {
 	let zip = req.query.zip;
 	console.log(zip);
-	axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
+	if(zip > 9999 && zip < 100000) {
+		axios.get(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
 		const current = response.data.main.temp;
 		const desc = response.data.weather[0].main;
 		const city = response.data.name;
@@ -55,6 +52,11 @@ app.get("/current/", function(req, res) {
 	}).catch(error => {
 		console.log(error);
 	});
+	} else {
+		res.status(400);
+		res.json({'error': "invalid date or zip"});	
+	}
+	
 }
 );
 
@@ -63,7 +65,8 @@ app.get("/current/", function(req, res) {
 // NOTE: This free endpoint only supports 5-day forecasts, so we'll have to work with that
 app.get("/forecast/", function(req, res){
 	let zip = req.query.zip;
-	axios.get(`${baseUrl}?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
+	if(zip > 9999 && zip < 100000) {
+		axios.get(`${baseUrl}?zip=${zip}&appid=${apiKey}&units=imperial`).then(function (response) {
 		ret = []
 		for(var forecast of response["data"]["list"]){
 			//console.log(forecast)
@@ -74,22 +77,25 @@ app.get("/forecast/", function(req, res){
 		}
 		console.log(res)
 		res.json({"cod":200, "data": ret, "city":response['data']['city']['name']});
-	}).catch(error => {
-		console.log(error);
-		res.status(error.response.data["cod"]).json({
-		    "cod": error.response.data["cod"],
-		    "message": error.response.data["message"]});
-	});
+		}).catch(error => {
+			console.log(error);
+			res.status(error.response.data["cod"]).json({
+			    "cod": error.response.data["cod"],
+			    "message": error.response.data["message"]});
+		});
+	} else {
+		res.status(400);
+		res.json({'error': "invalid date or zip"});	
+	}
 });
 
 
 // TODO: GET request handler that gets all comments for a particular day and zip code
 app.get("/comments/", function(req, res){
 	let zip = parseInt(req.query.zip);
-	// let date = moment(req.query.date).format('MM/DD/YYYY');
 	let date = req.query.date;
 
-	if(date.isValid() && zip > 9999 && zip < 100000) {
+	if(zip > 9999 && zip < 100000) {
 		
 		var text = "SELECT * FROM comments where zip = $1 AND date = $2";
 		var value = [zip, date];
