@@ -51,7 +51,7 @@ const App = () => {
         // console.log(response.data);
         setCurrentComments(response.data);
       });
-  });
+  }, [zipCode]);
 
   return (
     <>
