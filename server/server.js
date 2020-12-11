@@ -119,7 +119,8 @@ app.post('/comment/', function(req, res) {
     let data = req.body;
     console.log(data);
 
-	let date = moment().format('MM/DD/YYYY');
+	// let date = moment().format('MM/DD/YYYY');
+	let date = new Date();
 	let zip = parseInt(data.zip);
 	let comment = data.comment;
 	
