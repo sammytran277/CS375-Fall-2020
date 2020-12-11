@@ -11,7 +11,8 @@ import Tile from "./Tile.js";
 // const axios = require("axios");
 
 const Forecast = ({ value }) => {
-  
+
+  console.log(value);
   const bigItems = [];
   var subItems = [];
   if (!value.data) {
@@ -19,8 +20,6 @@ const Forecast = ({ value }) => {
   }
 
   for (var i = 0; i < value.data.length; i++) {
-    console.log("------>here");
-    console.log(value.data);
     if(i < value.data.length - 1) {
       if (
         value.data[i]["date"].split(",")[0] !== value.data[i + 1]["date"].split(",")[0]
@@ -44,7 +43,7 @@ const Forecast = ({ value }) => {
     for (var j = 0; j < bigItems[i].length; j++){
       temp.push(Math.floor(bigItems[i][j]["temp"]))
     }
-    console.log(Math.min(...temp));
+
     head.push(
       <>
         <td class='blank'> &nbsp; </td>
@@ -57,7 +56,7 @@ const Forecast = ({ value }) => {
         <>
           <td class='blank'> &nbsp; </td>
           <td>
-            <Tile image={ broken_clouds } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+            <Tile count={ i } image={ broken_clouds } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
           </td>
         </>
       );
@@ -67,7 +66,7 @@ const Forecast = ({ value }) => {
         <>
           <td class='blank'> &nbsp; </td>
           <td>
-            <Tile image={ sunny } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+            <Tile count={ i } image={ sunny } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
           </td>
         </>
       );
@@ -78,7 +77,7 @@ const Forecast = ({ value }) => {
         <>
           <td class='blank'> &nbsp; </td>
           <td>
-            <Tile image={ rain } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+            <Tile count={ i } image={ rain } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
           </td>
         </>
       );
@@ -89,41 +88,16 @@ const Forecast = ({ value }) => {
         <>
           <td class='blank'> &nbsp; </td>
           <td>
-            <Tile image={ overcast } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
+            <Tile count={ i } data={ value.data } image={ overcast } temp={ temp } bigItems={ bigItems } i={ i }></Tile>
           </td>
         </>
       );
     }
-    
-    /*
-      cell.push(
-    
-        <td>
-          <img src="sun.png"></img>
-          <ul>
-          
-            <li>{temp ? "max:  " + Math.max(...temp) : null}</li>
-            <li>{temp ? "min:  " + Math.min(...temp) : null}</li>
-            <li>{bigItems ? bigItems[i][0]["forecast"][0] : null}</li> 
-          </ul>
-        </td>
-      );
-    }
-    
-    /*axios
-      .get(`http://localhost:5000/splash?query=${bigItems[i][0]["forecast"][0]}`)
-      .then((response) => {
-        var url = (response.data.url);
-        console.log(url, "response")
-      });*/
-      
-      
   }
   cell.push(
     <td class='blank'> &nbsp; </td>
   );
   
-  console.log(bigItems, "sub")
   return (
     <div>
       <table>

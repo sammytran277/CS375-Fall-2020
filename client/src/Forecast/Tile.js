@@ -1,24 +1,21 @@
 import Modal from "./Modal";
 import { useState } from "react";
 
-const Tile = ({ image, temp, bigItems, i }) => {
+const Tile = ({ count, data, image, temp, bigItems, i }) => {
 
-    const [state, setState] = useState({show: false});
+    const [state, setState] = useState(false);
 
     const showModal = () => {
-        this.setState({ show: true });
+        setState(true);
     };
 
     const hideModal = () => {
-        setState({ show: false });
+        setState(false);
     };
 
     return (
         <>
-            <Modal show={state.show} handleClose={hideModal}>
-                <p>Modal</p>
-                <p>Data</p>
-            </Modal>
+            <Modal count={ count } data={ data } show={state} handleClose={hideModal}></Modal>
             <div>
                 <img src={ image } alt={'weather_image'} style={{ width: '90%', marginLeft: '5%' }} onClick={showModal}></img>
                 <ul>          
